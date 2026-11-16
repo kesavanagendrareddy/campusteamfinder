@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus TeamFinder | University Student Teammate & Project Matcher</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter for clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       CLEAN LIGHT & WHITE MODERN THEME
+       ======================================================== */
+    :root {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-color: #e2e8f0;
+      --border-focus: #6366f1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary-color: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --emerald: #059669;
+      --emerald-light: #ecfdf5;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --rose: #e11d48;
+      --rose-light: #fff1f2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.04) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.04) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      letter-spacing: -0.01em;
+    }
+
+    /* Clean Frosted White Navbar */
+    .light-navbar {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+    }
+    .navbar-brand {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main) !important;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+    }
+    .engine-status-pill {
+      font-size: 0.78rem;
+      background: var(--emerald-light);
+      color: var(--emerald);
+      border: 1px solid #a7f3d0;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .engine-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--emerald);
+    }
+
+    /* Light Hero Banner Section */
+    .hero-container {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      margin-bottom: 24px;
+    }
+    .hero-headline {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-description {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    /* Live Stats Ribbon (White Cards) */
+    .stats-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 14px 26px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s ease;
+    }
+    .stat-box:hover {
+      transform: translateY(-2px);
+    }
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .stat-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+    .stat-lbl {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* Light Spotlight Search Bar */
+    .search-bar-wrap {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 16px;
+      padding: 8px 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      display: flex;
+      align-items: center;
+      transition: all 0.25s ease;
+    }
+    .search-bar-wrap:focus-within {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+    }
+    .search-bar-input {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 0.96rem;
+      padding: 10px 12px;
+      width: 100%;
+    }
+    .search-bar-input:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    .search-bar-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Category Filter Chips */
+    .filter-pills-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .filter-btn-pill {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .filter-btn-pill:hover, .filter-btn-pill.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+    }
+
+    /* White Project Cards */
+    .project-card-light {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 24px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    }
+    .project-card-light:hover {
+      transform: translateY(-5px);
+      border-color: #c7d2fe;
+      box-shadow: 0 16px 32px rgba(79, 70, 229, 0.08), 0 4px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .creator-lead-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .creator-avatar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+    }
+    .creator-meta h6 {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .creator-meta span {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .project-item-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .project-item-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 4.2em;
+    }
+
+    /* Vibrant Skill Badges on White */
+    .skills-flex-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .skill-tag-pill {
+      background: var(--primary-light);
+      color: var(--primary-color);
+      border: 1px solid #c7d2fe;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    .skill-tag-pill:hover {
+      background: var(--primary-color);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Card Action Bar */
+    .card-actions-area {
+      border-top: 1px solid #f1f5f9;
+      padding-top: 18px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-apply-action {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      color: #ffffff;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-size: 0.92rem;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+      transition: all 0.2s ease;
+    }
+    .btn-apply-action:hover {
+      background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+    }
+    .btn-view-action {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      transition: all 0.2s ease;
+    }
+    .btn-view-action:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+    .btn-delete-action {
+      background: var(--rose-light);
+      color: var(--rose);
+      border: 1px solid #fecdd3;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      transition: all 0.2s ease;
+    }
+    .btn-delete-action:hover {
+      background: var(--rose);
+      color: #ffffff;
+      border-color: var(--rose);
+    }
+
+    /* ========================================================
+       EXTRA-WIDE FORM MODALS (CRITICAL USER REQUIREMENT)
+       ======================================================== */
+    /* Significant Width Increase: 1100px width on desktop */
+    #postProjectModal .modal-dialog,
+    #applyModal .modal-dialog {
+      max-width: 1100px !important;
+      width: 95% !important;
+      margin: 1.5rem auto;
+    }
+
+    /* Wide Applicants Executive Dashboard View */
+    #applicantsListModal .modal-dialog {
+      max-width: 1200px !important;
+      width: 95% !important;
+      margin: 1.5rem auto;
+    }
+
+    /* Comfortable width for Security & Delete Modals */
+    #securityKeyModal .modal-dialog,
+    #deleteProjectModal .modal-dialog {
+      max-width: 520px !important;
+      width: 92% !important;
+      margin: 1.5rem auto;
+    }
+
+    /* Light Modal Styling */
+    .modal-content.clean-light-modal {
+      background: #ffffff !important;
+      border: 1px solid var(--border-color) !important;
+      border-radius: 24px !important;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15) !important;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+    .modal-header.clean-modal-header {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 24px 36px;
+      background: #ffffff;
+    }
+    .modal-body.clean-modal-body {
+      padding: 30px 36px;
+      background: #ffffff;
+    }
+    .modal-footer.clean-modal-footer {
+      border-top: 1px solid #f1f5f9;
+      padding: 18px 36px;
+      background: #f8fafc;
+    }
+
+    /* Clean Form Controls on White */
+    .form-label.clean-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-control.clean-input,
+    .form-control.clean-textarea {
+      background: #f8fafc !important;
+      border: 1.5px solid #cbd5e1 !important;
+      color: var(--text-main) !important;
+      border-radius: 12px !important;
+      padding: 12px 18px !important;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    .form-control.clean-input:focus,
+    .form-control.clean-textarea:focus {
+      background: #ffffff !important;
+      border-color: var(--border-focus) !important;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12) !important;
+      outline: none;
+    }
+    .form-control.clean-input::placeholder,
+    .form-control.clean-textarea::placeholder {
+      color: #94a3b8;
+    }
+    .clean-helper-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Informational Guidance Cards Inside Forms */
+    .info-guidance-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px 22px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .info-guidance-card h6 {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+    }
+    .info-guidance-card p {
+      font-size: 0.85rem;
+      color: #475569;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Applicants Modal Cards */
+    .applicant-white-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+    .applicant-white-card:hover {
+      border-color: #c7d2fe;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.06);
+    }
+    .match-pill-badge {
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .match-pill-high {
+      background: var(--emerald-light);
+      color: var(--emerald);
+      border: 1px solid #a7f3d0;
+    }
+    .match-pill-medium {
+      background: var(--amber-light);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+    }
+    .match-pill-low {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+    .pitch-light-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* Floating White Toast Notifications */
+    .toast-float-box {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1090;
+      max-width: 440px;
+      width: 90%;
+    }
+    .white-toast-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      color: var(--text-main);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideInToast 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    @keyframes slideInToast {
+      from { transform: translateX(40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Toast Container -->
+  <div id="alertContainer" class="toast-float-box"></div>
+
+  <!-- White Frosted Header Navigation -->
+  <nav class="navbar navbar-expand-lg light-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <div class="brand-logo-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <div>
+          <span>Campus TeamFinder</span>
+        </div>
+      </a>
+
+      <div class="d-none d-md-flex align-items-center ms-4">
+        <span class="engine-status-pill">
+          <span class="engine-dot"></span>
+          AI Matching Engine Online
+        </span>
+      </div>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+        <i class="bi bi-list fs-2 text-dark"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navContent">
+        <ul class="navbar-nav ms-auto align-items-center gap-3 mt-3 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-secondary fw-semibold px-2" href="#projectsSection">
+              <i class="bi bi-grid-fill me-1"></i> Browse Projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-apply-action px-4 py-2" data-bs-toggle="modal" data-bs-target="#postProjectModal">
+              <i class="bi bi-plus-circle-fill me-1"></i> Post a Project
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Clean Hero Section -->
+  <header class="hero-container">
+    <div class="container">
+      <div class="hero-badge-pill">
+        <i class="bi bi-stars"></i>
+        <span>AI-Powered Campus Project Collaboration</span>
+      </div>
+      <h1 class="hero-headline">
+        Find The Perfect Teammates. <br>
+        <span class="hero-gradient-text">Build Great Things Together.</span>
+      </h1>
+      <p class="hero-description">
+        Connect with talented student developers and designers for university hackathons, capstones, and course projects. 
+        Review applicant pitches ranked with smart TF-IDF NLP scoring.
+      </p>
+
+      <!-- Live Dashboard Stats Ribbon -->
+      <div class="stats-ribbon">
+        <div class="stat-box">
+          <div class="stat-icon">
+            <i class="bi bi-folder-check"></i>
+          </div>
+          <div class="text-start">
+            <div class="stat-num" id="statsProjectCount">0</div>
+            <div class="stat-lbl">Active Projects</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <div class="text-start">
+            <div class="stat-num" id="statsApplicantCount">0</div>
+            <div class="stat-lbl">Applications Submitted</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon" style="background: #fef3c7; color: #d97706;">
+            <i class="bi bi-cpu-fill"></i>
+          </div>
+          <div class="text-start">
+            <div class="stat-num">TF-IDF 2.5x</div>
+            <div class="stat-lbl">NLP Match Booster</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-apply-action px-4 py-3 fs-6 d-flex align-items-center gap-2 shadow" data-bs-toggle="modal" data-bs-target="#postProjectModal">
+          <i class="bi bi-rocket-takeoff-fill"></i>
+          <span>Post a Project</span>
+        </button>
+        <a href="#projectsSection" class="btn btn-view-action px-4 py-3 fs-6 d-flex align-items-center gap-2">
+          <i class="bi bi-search"></i>
+          <span>Explore Open Roles</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Projects Hub -->
+  <main class="container my-5" id="projectsSection">
+    
+    <!-- Spotlight Search & Section Header -->
+    <div class="row align-items-center mb-4 g-3">
+      <div class="col-lg-5">
+        <h3 class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
+          <span>Campus Projects</span>
+          <span class="badge bg-primary rounded-pill fs-6 px-3" id="activeBadgeCount">0</span>
+        </h3>
+        <p class="text-muted small mb-0">Discover teams actively searching for student contributors.</p>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="search-bar-wrap">
+          <i class="bi bi-search text-muted fs-5 ms-1"></i>
+          <input type="text" id="searchInput" class="search-bar-input" placeholder="Search keywords (e.g., Python, React, NLP, Alex)..." onkeyup="filterProjects()">
+          <span class="badge bg-light text-secondary border px-2 py-1 small d-none d-sm-inline">
+            Live Search
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter chips for fast navigation -->
+    <div class="filter-pills-row mb-4">
+      <div class="filter-btn-pill active" onclick="setQuickFilter('all', this)"><i class="bi bi-grid-fill me-1"></i> All Projects</div>
+      <div class="filter-btn-pill" onclick="setQuickFilter('python', this)">🐍 Python & Backend</div>
+      <div class="filter-btn-pill" onclick="setQuickFilter('ai', this)">🤖 AI / ML & NLP</div>
+      <div class="filter-btn-pill" onclick="setQuickFilter('react', this)">⚛️ React & Frontend</div>
+      <div class="filter-btn-pill" onclick="setQuickFilter('applied', this)">🔥 Most Applied</div>
+    </div>
+
+    <!-- Dynamic Projects Grid -->
+    <div class="row g-4" id="projectsContainer">
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-primary" role="status" style="width: 2.8rem; height: 2.8rem;">
+          <span class="visually-hidden">Loading projects...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading campus projects from MongoDB...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       MODAL 1: POST A PROJECT (EXTRA-WIDE 1100PX LIGHT FORM)
+       ======================================================== -->
+  <div class="modal fade" id="postProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content clean-light-modal">
+        
+        <!-- Header -->
+        <div class="modal-header clean-modal-header">
+          <div>
+            <h4 class="modal-title fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i class="bi bi-plus-square-fill text-primary"></i>
+              <span>Create & Post a Campus Project</span>
+            </h4>
+            <div class="text-muted small">Share your project scope and find motivated peers to build it with you.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Form Body with Extra-Wide 2-Column Responsive Layout -->
+        <form id="postProjectForm" onsubmit="handlePostProject(event)">
+          <div class="modal-body clean-modal-body">
+            
+            <div class="row g-4 mb-4">
+              <!-- Left Column: Core Details -->
+              <div class="col-lg-7">
+                
+                <div class="mb-3">
+                  <label for="projectTitle" class="form-label clean-label">
+                    <i class="bi bi-card-heading text-primary"></i> Project Title <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" class="form-control clean-input" id="projectTitle" placeholder="e.g. AI-Powered Smart Campus Shuttle Tracker" required>
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label for="creatorName" class="form-label clean-label">
+                      <i class="bi bi-person-badge text-primary"></i> Team Lead / Creator <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control clean-input" id="creatorName" placeholder="e.g. Alex Johnson (CS Junior)" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="securityKey" class="form-label clean-label">
+                      <i class="bi bi-shield-lock-fill text-warning"></i> Creator Security Key <span class="text-danger">*</span>
+                    </label>
+                    <input type="password" class="form-control clean-input" id="securityKey" placeholder="Create a secret PIN..." required>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="requiredSkills" class="form-label clean-label">
+                    <i class="bi bi-tags text-primary"></i> Required Skills & Technologies <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" class="form-control clean-input" id="requiredSkills" placeholder="e.g. Python, Flask, MongoDB, React, NLP" required>
+                  <div class="clean-helper-text">Separate skills with commas (e.g. Python, React, UI/UX).</div>
+                </div>
+
+              </div>
+
+              <!-- Right Column: AI Guidance & Security Card -->
+              <div class="col-lg-5">
+                <div class="info-guidance-card">
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-stars text-warning fs-4"></i>
+                    <h6 class="mb-0">How AI Matching Works</h6>
+                  </div>
+                  <p class="mb-3">
+                    Our backend runs an NLP algorithm comparing applicant pitches with your project description. Detailed descriptions yield significantly higher match precision!
+                  </p>
+                  <div class="alert alert-warning py-2 px-3 small border-0 rounded-3 mb-0" style="background: #fef3c7; color: #92400e;">
+                    <i class="bi bi-key-fill me-1"></i> Remember your <strong>Security Key</strong>! You will need it to view applicants and rank scores.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Section: Full Width Detailed Description -->
+            <div class="mb-2">
+              <label for="projectDescription" class="form-label clean-label">
+                <i class="bi bi-text-paragraph text-primary"></i> Detailed Project Description & Team Goals <span class="text-danger">*</span>
+              </label>
+              <textarea class="form-control clean-textarea" id="projectDescription" rows="5" placeholder="Explain the project scope, what you are building, the specific problems you plan to solve, and the contributions you expect from your teammates..." required></textarea>
+              <div class="clean-helper-text">Writing a thorough description gives candidates clear expectations and optimizes TF-IDF similarity.</div>
+            </div>
+
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="modal-footer clean-modal-footer d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-view-action px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-apply-action px-4 py-2 fs-6 fw-semibold" id="postSubmitBtn">
+              <i class="bi bi-cloud-arrow-up-fill me-1"></i> Publish Project
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 2: APPLY TO PROJECT (EXTRA-WIDE 1100PX LIGHT FORM)
+       ======================================================== -->
+  <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content clean-light-modal">
+        
+        <!-- Header -->
+        <div class="modal-header clean-modal-header">
+          <div>
+            <h4 class="modal-title fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i class="bi bi-send-check-fill text-success"></i>
+              <span>Apply for Project Teammate Position</span>
+            </h4>
+            <div class="text-muted small">Pitch your skills directly to the creator. The AI will compute your Match Score.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Form Body with Extra-Wide 2-Column Responsive Layout -->
+        <form id="applyForm" onsubmit="handleApplyProject(event)">
+          <div class="modal-body clean-modal-body">
+            
+            <input type="hidden" id="applyProjectId">
+
+            <!-- Target Project Callout Banner -->
+            <div class="p-3 mb-4 rounded-3 border" style="background: #f8fafc; border-color: #e2e8f0;">
+              <span class="text-muted small text-uppercase fw-bold">Applying for:</span>
+              <h5 class="fw-bold text-dark mb-0 mt-1" id="applyProjectTitleDisplay"></h5>
+            </div>
+
+            <div class="row g-4">
+              <!-- Left Column: Applicant Credentials -->
+              <div class="col-lg-5">
+                
+                <div class="mb-3">
+                  <label for="applicantName" class="form-label clean-label">
+                    <i class="bi bi-person-fill text-primary"></i> Your Full Name <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" class="form-control clean-input" id="applicantName" placeholder="e.g. Sarah Connor" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="applicantContact" class="form-label clean-label">
+                    <i class="bi bi-envelope-at-fill text-primary"></i> Contact Info <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" class="form-control clean-input" id="applicantContact" placeholder="e.g. sarah@campus.edu or @sarah_c" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="applicantSkill" class="form-label clean-label">
+                    <i class="bi bi-tools text-primary"></i> Your Key Skills <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" class="form-control clean-input" id="applicantSkill" placeholder="e.g. Python, NLP, Data Visualization, React" required>
+                  <div class="clean-helper-text">List relevant tools and coursework.</div>
+                </div>
+
+                <div class="p-3 rounded-3" style="background: #eef2ff; border: 1px solid #c7d2fe;">
+                  <div class="small fw-bold text-primary mb-1">
+                    <i class="bi bi-cpu me-1"></i> NLP Match Engine
+                  </div>
+                  <div class="small text-secondary">
+                    Your pitch is analyzed against the project requirements to generate an AI Match Score for the team lead.
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right Column: Pitch & Contribution Textarea -->
+              <div class="col-lg-7">
+                <div class="h-100 d-flex flex-column">
+                  <label for="applicantPitch" class="form-label clean-label">
+                    <i class="bi bi-chat-quote-fill text-primary"></i> Your Pitch & What You Bring to the Team <span class="text-danger">*</span>
+                  </label>
+                  <textarea class="form-control clean-textarea flex-grow-1" id="applicantPitch" rows="8" placeholder="Explain why you are excited about this project, relevant projects you've built, and how your specific skills align with the project description..." required></textarea>
+                  <div class="clean-helper-text mt-2">Be specific! Relevant technical keywords and enthusiasm boost your NLP match score.</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="modal-footer clean-modal-footer d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-view-action px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-apply-action px-4 py-2 fs-6 fw-semibold" id="applySubmitBtn">
+              <i class="bi bi-check2-circle me-1"></i> Submit Application
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 3: SECURITY KEY PROMPT (VIEW APPLICANTS)
+       ======================================================== -->
+  <div class="modal fade" id="securityKeyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content clean-light-modal">
+        <div class="modal-header clean-modal-header">
+          <h5 class="modal-title fw-bold text-dark fs-6 d-flex align-items-center gap-2">
+            <i class="bi bi-shield-lock-fill text-warning"></i>
+            <span>Creator Security Verification</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="securityKeyForm" onsubmit="handleVerifySecurityKey(event)">
+          <div class="modal-body clean-modal-body">
+            <input type="hidden" id="securityProjectId">
+            <input type="hidden" id="securityProjectTitle">
+
+            <p class="text-muted small mb-3">
+              Enter the <strong>Security Key</strong> you created when posting this project to view applicants and AI match rankings.
+            </p>
+
+            <div class="mb-3">
+              <label for="enteredSecurityKey" class="form-label clean-label">Project Security Key</label>
+              <input type="password" class="form-control clean-input" id="enteredSecurityKey" placeholder="Enter key..." required autocomplete="off">
+            </div>
+
+            <div id="securityKeyError" class="alert alert-danger py-2 small d-none" role="alert"></div>
+          </div>
+
+          <div class="modal-footer clean-modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-view-action px-3" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-apply-action px-4" id="securitySubmitBtn">
+              <i class="bi bi-unlock-fill me-1"></i> Unlock Applicants
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 4: VIEW APPLICANTS & AI RANKINGS (EXTRA-WIDE 1200PX)
+       ======================================================== -->
+  <div class="modal fade" id="applicantsListModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content clean-light-modal">
+        
+        <div class="modal-header clean-modal-header">
+          <div>
+            <h4 class="modal-title fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i class="bi bi-stars text-warning"></i>
+              <span>Applicant Ranking & NLP Match Scores</span>
+            </h4>
+            <div class="text-muted small" id="applicantsModalSubtitle"></div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body clean-modal-body">
+          <!-- ML Model Banner -->
+          <div class="p-3 mb-4 rounded-3 border" style="background: #eef2ff; border-color: #c7d2fe;">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-cpu-fill text-primary"></i>
+              <strong class="text-dark small">Machine Learning Pipeline:</strong>
+            </div>
+            <div class="text-secondary small">
+              Each pitch is evaluated against the project description using <code>TfidfVectorizer(stop_words='english')</code> and Cosine Similarity with boosted calibration.
+            </div>
+          </div>
+
+          <!-- Applicants List Output -->
+          <div id="applicantsContainer"></div>
+        </div>
+
+        <div class="modal-footer clean-modal-footer">
+          <button type="button" class="btn btn-view-action px-4" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 5: DELETE PROJECT CONFIRMATION
+       ======================================================== -->
+  <div class="modal fade" id="deleteProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content clean-light-modal">
+        <div class="modal-header clean-modal-header">
+          <h5 class="modal-title fw-bold text-danger fs-6 d-flex align-items-center gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>Confirm Project Deletion</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="deleteProjectForm" onsubmit="handleDeleteProject(event)">
+          <div class="modal-body clean-modal-body">
+            <input type="hidden" id="deleteProjectId">
+
+            <div class="alert alert-danger py-2 small mb-3 rounded-3" style="background: var(--rose-light); border-color: #fecdd3; color: var(--rose);">
+              <i class="bi bi-trash3-fill me-1"></i> You are about to permanently delete <strong id="deleteProjectTitleDisplay"></strong>. All applicant records will be permanently removed.
+            </div>
+
+            <div class="mb-3">
+              <label for="deleteSecurityKey" class="form-label clean-label">Enter Security Key to Confirm</label>
+              <input type="password" class="form-control clean-input" id="deleteSecurityKey" placeholder="Enter PIN..." required autocomplete="off">
+            </div>
+
+            <div id="deleteKeyError" class="alert alert-danger py-2 small d-none" role="alert"></div>
+          </div>
+
+          <div class="modal-footer clean-modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-view-action px-3" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-delete-action px-4" id="deleteSubmitBtn">
+              <i class="bi bi-trash3-fill me-1"></i> Delete Permanently
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JavaScript Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Vanilla JavaScript Application Logic -->
+  <script>
+    let allProjects = [];
+
+    // Modal instances
+    let postModalInstance = null;
+    let applyModalInstance = null;
+    let securityModalInstance = null;
+    let applicantsModalInstance = null;
+    let deleteModalInstance = null;
+
+    document.addEventListener("DOMContentLoaded", function() {
+      postModalInstance = new bootstrap.Modal(document.getElementById("postProjectModal"));
+      applyModalInstance = new bootstrap.Modal(document.getElementById("applyModal"));
+      securityModalInstance = new bootstrap.Modal(document.getElementById("securityKeyModal"));
+      applicantsModalInstance = new bootstrap.Modal(document.getElementById("applicantsListModal"));
+      deleteModalInstance = new bootstrap.Modal(document.getElementById("deleteProjectModal"));
+
+      fetchProjects();
+    });
+
+    // Floating white toast notification
+    function showAlert(message, type) {
+      let icon = type === 'success' ? 'bi-check-circle-fill text-success' : 'bi-exclamation-triangle-fill text-danger';
+      let alertContainer = document.getElementById("alertContainer");
+      alertContainer.innerHTML = `
+        <div class="white-toast-card">
+          <i class="bi ${icon} fs-4"></i>
+          <div class="flex-grow-1 small">${message}</div>
+          <button type="button" class="btn-close ms-2" onclick="document.getElementById('alertContainer').innerHTML=''"></button>
+        </div>
+      `;
+      setTimeout(function() {
+        alertContainer.innerHTML = "";
+      }, 5000);
+    }
+
+    // 1. Fetch All Projects (GET /api/projects)
+    function fetchProjects() {
+      fetch("/api/projects")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          allProjects = data;
+          updateDashboardStats(allProjects);
+          renderProjects(allProjects);
+        })
+        .catch(function(err) {
+          console.error("Error fetching projects:", err);
+          let container = document.getElementById("projectsContainer");
+          container.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <div class="p-4 rounded-3 d-inline-block text-danger border" style="background: var(--rose-light); border-color: #fecdd3;">
+                <i class="bi bi-cloud-slash-fill fs-2 d-block mb-2"></i>
+                Failed to connect to backend server. Make sure MongoDB and Flask are running.
+              </div>
+            </div>
+          `;
+        });
+    }
+
+    // Update Live Dashboard Statistics
+    function updateDashboardStats(projects) {
+      let totalProjects = projects.length;
+      let totalApplicants = 0;
+      for (let i = 0; i < projects.length; i++) {
+        totalApplicants += (projects[i].applicant_count || 0);
+      }
+      document.getElementById("statsProjectCount").innerText = totalProjects;
+      document.getElementById("statsApplicantCount").innerText = totalApplicants;
+      document.getElementById("activeBadgeCount").innerText = totalProjects;
+    }
+
+    // 2. Render Project Cards on White Surface
+    function renderProjects(projects) {
+      let container = document.getElementById("projectsContainer");
+
+      if (projects.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <div class="p-5 rounded-4 mx-auto text-center border" style="max-width: 520px; background: #ffffff;">
+              <i class="bi bi-inbox-fill display-3 text-muted mb-3 d-block"></i>
+              <h4 class="fw-bold text-dark mb-2">No Projects Found</h4>
+              <p class="text-muted small mb-4">Be the first student to publish a project and recruit teammates!</p>
+              <button class="btn btn-apply-action px-4 py-2" data-bs-toggle="modal" data-bs-target="#postProjectModal">
+                <i class="bi bi-plus-circle me-1"></i> Post a Project
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = "";
+      for (let i = 0; i < projects.length; i++) {
+        let p = projects[i];
+
+        // Format Skills into Clean Light Pills
+        let skillsHtml = "";
+        if (p.required_skills) {
+          let skillsArr = p.required_skills.split(",");
+          for (let j = 0; j < skillsArr.length; j++) {
+            let s = skillsArr[j].trim();
+            if (s.length > 0) {
+              skillsHtml += `<span class="skill-tag-pill"><i class="bi bi-check2"></i>${escapeHtml(s)}</span>`;
+            }
+          }
+        }
+
+        let firstLetter = (p.creator_name && p.creator_name.trim().length > 0) 
+                          ? p.creator_name.trim().charAt(0).toUpperCase() : "U";
+
+        html += `
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card-light">
+              <div>
+                <!-- Top Row: Creator Info & Status -->
+                <div class="card-top-row">
+                  <div class="creator-lead-group">
+                    <div class="creator-avatar-circle">${firstLetter}</div>
+                    <div class="creator-meta">
+                      <h6>${escapeHtml(p.creator_name || "Anonymous Lead")}</h6>
+                      <span>Project Creator</span>
+                    </div>
+                  </div>
+                  <span class="badge rounded-pill px-3 py-1 small" style="background: var(--emerald-light); color: var(--emerald); border: 1px solid #a7f3d0;">
+                    <i class="bi bi-circle-fill me-1" style="font-size: 6px;"></i>${escapeHtml(p.status || "Open")}
+                  </span>
+                </div>
+
+                <!-- Project Title -->
+                <h5 class="project-item-title">${escapeHtml(p.title)}</h5>
+
+                <!-- Description -->
+                <p class="project-item-desc">${escapeHtml(p.description)}</p>
+
+                <!-- Required Skills -->
+                <div class="mb-3">
+                  <div class="small fw-semibold text-secondary mb-2">Required Skills:</div>
+                  <div class="skills-flex-wrap">
+                    ${skillsHtml || "<span class='text-muted small'>Open to all skills</span>"}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer Actions -->
+              <div class="card-actions-area">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small text-muted d-flex align-items-center gap-1">
+                    <i class="bi bi-people text-primary"></i>
+                    <strong>${p.applicant_count || 0}</strong> applied
+                  </span>
+                  <span class="badge bg-light text-secondary border rounded-pill small">
+                    ID: ${p._id ? p._id.substring(p._id.length - 6) : ''}
+                  </span>
+                </div>
+
+                <button class="btn btn-apply-action w-100" onclick="openApplyModal('${p._id}', '${escapeHtml(p.title)}')">
+                  <i class="bi bi-send-fill me-1"></i> Apply to Team
+                </button>
+
+                <div class="d-flex gap-2">
+                  <button class="btn btn-view-action flex-grow-1" onclick="openSecurityModal('${p._id}', '${escapeHtml(p.title)}')">
+                    <i class="bi bi-shield-lock-fill text-warning me-1"></i> View Applicants
+                  </button>
+                  <button class="btn btn-delete-action px-3" title="Delete Project" onclick="openDeleteModal('${p._id}', '${escapeHtml(p.title)}')">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // 3. Search & Live Filtering
+    function filterProjects() {
+      let query = document.getElementById("searchInput").value.toLowerCase().trim();
+      if (!query) {
+        renderProjects(allProjects);
+        return;
+      }
+      let filtered = [];
+      for (let i = 0; i < allProjects.length; i++) {
+        let p = allProjects[i];
+        let titleMatch = p.title && p.title.toLowerCase().indexOf(query) !== -1;
+        let skillMatch = p.required_skills && p.required_skills.toLowerCase().indexOf(query) !== -1;
+        let creatorMatch = p.creator_name && p.creator_name.toLowerCase().indexOf(query) !== -1;
+        let descMatch = p.description && p.description.toLowerCase().indexOf(query) !== -1;
+
+        if (titleMatch || skillMatch || creatorMatch || descMatch) {
+          filtered.push(p);
+        }
+      }
+      renderProjects(filtered);
+    }
+
+    // Quick Filter Chips
+    function setQuickFilter(type, el) {
+      let chips = document.querySelectorAll('.filter-btn-pill');
+      chips.forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+
+      if (type === 'all') {
+        renderProjects(allProjects);
+      } else if (type === 'applied') {
+        let sorted = [...allProjects].sort((a,b) => (b.applicant_count || 0) - (a.applicant_count || 0));
+        renderProjects(sorted);
+      } else {
+        let filtered = allProjects.filter(p => {
+          let skills = (p.required_skills || '').toLowerCase();
+          let title = (p.title || '').toLowerCase();
+          let desc = (p.description || '').toLowerCase();
+          return skills.includes(type) || title.includes(type) || desc.includes(type);
+        });
+        renderProjects(filtered);
+      }
+    }
+
+    // 4. Handle Post Project (POST /api/projects)
+    function handlePostProject(event) {
+      event.preventDefault();
+
+      let submitBtn = document.getElementById("postSubmitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Publishing...`;
+
+      let payload = {
+        title: document.getElementById("projectTitle").value,
+        creator_name: document.getElementById("creatorName").value,
+        required_skills: document.getElementById("requiredSkills").value,
+        security_key: document.getElementById("securityKey").value,
+        description: document.getElementById("projectDescription").value
+      };
+
+      fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) {
+        return res.json().then(function(data) {
+          return { status: res.status, body: data };
+        });
+      })
+      .then(function(res) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-cloud-arrow-up-fill me-1"></i> Publish Project`;
+
+        if (res.status === 201) {
+          document.getElementById("postProjectForm").reset();
+          postModalInstance.hide();
+          showAlert("🎉 Project published successfully! Save your Security Key.", "success");
+          fetchProjects();
+        } else {
+          alert("Error: " + (res.body.error || "Failed to create project"));
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-cloud-arrow-up-fill me-1"></i> Publish Project`;
+        console.error(err);
+        alert("Network error. Please try again.");
+      });
+    }
+
+    // 5. Open Apply Modal
+    function openApplyModal(projectId, projectTitle) {
+      document.getElementById("applyProjectId").value = projectId;
+      document.getElementById("applyProjectTitleDisplay").innerText = projectTitle;
+      document.getElementById("applyForm").reset();
+      applyModalInstance.show();
+    }
+
+    // 6. Handle Apply (POST /api/projects/<id>/apply)
+    function handleApplyProject(event) {
+      event.preventDefault();
+
+      let submitBtn = document.getElementById("applySubmitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Submitting...`;
+
+      let projectId = document.getElementById("applyProjectId").value;
+      let payload = {
+        applicant_name: document.getElementById("applicantName").value,
+        applicant_skill: document.getElementById("applicantSkill").value,
+        contact: document.getElementById("applicantContact").value,
+        applicant_pitch: document.getElementById("applicantPitch").value
+      };
+
+      fetch("/api/projects/" + projectId + "/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) {
+        return res.json().then(function(data) {
+          return { status: res.status, body: data };
+        });
+      })
+      .then(function(res) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-check2-circle me-1"></i> Submit Application`;
+
+        if (res.status === 200) {
+          document.getElementById("applyForm").reset();
+          applyModalInstance.hide();
+          showAlert("🌟 Application submitted! The team lead will review your pitch.", "success");
+          fetchProjects();
+        } else {
+          alert("Error: " + (res.body.error || "Failed to submit application"));
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-check2-circle me-1"></i> Submit Application`;
+        console.error(err);
+        alert("Failed to apply. Please check your connection.");
+      });
+    }
+
+    // 7. Open Security Modal
+    function openSecurityModal(projectId, projectTitle) {
+      document.getElementById("securityProjectId").value = projectId;
+      document.getElementById("securityProjectTitle").value = projectTitle;
+      document.getElementById("enteredSecurityKey").value = "";
+      
+      let errorDiv = document.getElementById("securityKeyError");
+      errorDiv.classList.add("d-none");
+      errorDiv.innerText = "";
+
+      securityModalInstance.show();
+    }
+
+    // 8. Verify Security Key & Fetch AI Rankings (POST /api/projects/<id>/view_applicants)
+    function handleVerifySecurityKey(event) {
+      event.preventDefault();
+
+      let projectId = document.getElementById("securityProjectId").value;
+      let projectTitle = document.getElementById("securityProjectTitle").value;
+      let securityKey = document.getElementById("enteredSecurityKey").value;
+      let errorDiv = document.getElementById("securityKeyError");
+      let submitBtn = document.getElementById("securitySubmitBtn");
+
+      errorDiv.classList.add("d-none");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Verifying...`;
+
+      fetch("/api/projects/" + projectId + "/view_applicants", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ security_key: securityKey })
+      })
+      .then(function(res) {
+        return res.json().then(function(data) {
+          return { status: res.status, body: data };
+        });
+      })
+      .then(function(res) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-unlock-fill me-1"></i> Unlock Applicants`;
+
+        if (res.status === 200) {
+          securityModalInstance.hide();
+          renderApplicantsModal(res.body, projectTitle);
+        } else {
+          errorDiv.innerText = res.body.error || "Incorrect Security Key. Access denied.";
+          errorDiv.classList.remove("d-none");
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-unlock-fill me-1"></i> Unlock Applicants`;
+        console.error(err);
+        errorDiv.innerText = "Network error. Please try again.";
+        errorDiv.classList.remove("d-none");
+      });
+    }
+
+    // 9. Render Applicants List in Wide Modal with NLP Match Score Badges
+    function renderApplicantsModal(applicants, projectTitle) {
+      document.getElementById("applicantsModalSubtitle").innerText = "Project: " + projectTitle;
+      let container = document.getElementById("applicantsContainer");
+
+      if (applicants.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-5">
+            <i class="bi bi-people display-4 text-muted mb-3 d-block"></i>
+            <h5 class="fw-bold text-dark">No Applicants Yet</h5>
+            <p class="text-muted small">Share your project with students across campus to begin receiving pitches!</p>
+          </div>
+        `;
+        applicantsModalInstance.show();
+        return;
+      }
+
+      let html = `<div class="mb-3 text-secondary small fw-semibold">Total Applicants: ${applicants.length} (Ranked by AI Match Score)</div>`;
+
+      for (let i = 0; i < applicants.length; i++) {
+        let app = applicants[i];
+        let score = app.match_score !== undefined ? app.match_score : 0;
+
+        let badgeClass = "match-pill-low";
+        let matchLabel = "Moderate Match";
+        if (score >= 70) {
+          badgeClass = "match-pill-high";
+          matchLabel = "Strong Match";
+        } else if (score >= 40) {
+          badgeClass = "match-pill-medium";
+          matchLabel = "Good Match";
+        }
+
+        let rankBadge = `<span class="badge bg-secondary me-2">#${i + 1}</span>`;
+        if (i === 0) {
+          rankBadge = `<span class="badge bg-warning text-dark me-2"><i class="bi bi-trophy-fill me-1"></i>#1 Top Match</span>`;
+        }
+
+        html += `
+          <div class="applicant-white-card">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+              <div class="d-flex align-items-center gap-2">
+                ${rankBadge}
+                <h5 class="fw-bold mb-0 text-dark">${escapeHtml(app.applicant_name)}</h5>
+              </div>
+              <div class="match-pill-badge ${badgeClass}">
+                <i class="bi bi-cpu-fill"></i>
+                <span>${score}% Match (${matchLabel})</span>
+              </div>
+            </div>
+
+            <div class="row g-2 mb-2 small text-muted">
+              <div class="col-md-6">
+                <strong class="text-dark"><i class="bi bi-tools text-primary me-1"></i>Skills:</strong> 
+                ${escapeHtml(app.applicant_skill || "Not provided")}
+              </div>
+              <div class="col-md-6">
+                <strong class="text-dark"><i class="bi bi-envelope-at text-info me-1"></i>Contact:</strong> 
+                ${escapeHtml(app.contact || "Not provided")}
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <div class="small fw-semibold text-secondary">Applicant Pitch & Contribution:</div>
+              <div class="pitch-light-box">
+                "${escapeHtml(app.applicant_pitch)}"
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      applicantsModalInstance.show();
+    }
+
+    // 10. Open Delete Modal
+    function openDeleteModal(projectId, projectTitle) {
+      document.getElementById("deleteProjectId").value = projectId;
+      document.getElementById("deleteProjectTitleDisplay").innerText = '"' + projectTitle + '"';
+      document.getElementById("deleteSecurityKey").value = "";
+
+      let errorDiv = document.getElementById("deleteKeyError");
+      errorDiv.classList.add("d-none");
+      errorDiv.innerText = "";
+
+      deleteModalInstance.show();
+    }
+
+    // 11. Handle Delete Project (DELETE /api/projects/<id>)
+    function handleDeleteProject(event) {
+      event.preventDefault();
+
+      let projectId = document.getElementById("deleteProjectId").value;
+      let securityKey = document.getElementById("deleteSecurityKey").value;
+      let errorDiv = document.getElementById("deleteKeyError");
+      let submitBtn = document.getElementById("deleteSubmitBtn");
+
+      errorDiv.classList.add("d-none");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Deleting...`;
+
+      fetch("/api/projects/" + projectId, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ security_key: securityKey })
+      })
+      .then(function(res) {
+        return res.json().then(function(data) {
+          return { status: res.status, body: data };
+        });
+      })
+      .then(function(res) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-trash3-fill me-1"></i> Delete Permanently`;
+
+        if (res.status === 200) {
+          deleteModalInstance.hide();
+          showAlert("🗑️ Project post permanently removed.", "success");
+          fetchProjects();
+        } else {
+          errorDiv.innerText = res.body.error || "Incorrect Security Key. Cannot delete project.";
+          errorDiv.classList.remove("d-none");
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="bi bi-trash3-fill me-1"></i> Delete Permanently`;
+        console.error(err);
+        errorDiv.innerText = "Network error. Please try again.";
+        errorDiv.classList.remove("d-none");
+      });
+    }
+
+    // Helper: Escape HTML special chars to prevent XSS
+    function escapeHtml(text) {
+      if (!text) return "";
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+
+</body>
+</html>
